@@ -30,6 +30,7 @@ SELF=${0##*/} SDIR=${0%/*}
 # Set some defaults
 VERSION=0.1
 
+DOMAIN_LIST=${1:-${SDIR}/list.txt}
 ####################################################### functions ######################################################
 # Print usage information
 function help() {
@@ -59,7 +60,7 @@ cat <<!!
 <?xml version='1.0' encoding='UTF-8'?><feed xmlns='http://www.w3.org/2005/Atom' xmlns:apps='http://schemas.google.com/apps/2006'>
 !!
 
-cat list.txt | while read line; do
+cat ${DOMAIN_LIST} | while read line; do
 cat <<!!
     <entry>
         <category term='filter'></category>
