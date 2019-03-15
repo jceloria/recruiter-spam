@@ -38,7 +38,6 @@ Usage: ${SELF} [OPTION]...
 Generate Gmail filter from list of domains
 
   -h    Display this help message and exit
-  -q    Quiet output
 
 EOF
     return
@@ -49,7 +48,6 @@ EOF
 while getopts ":hq" opt; do
     case ${opt} in
         h)  help >&2; exit 1                                            ;;
-        q)  QUIET=1                                                     ;;
         \?) echo "Invalid option: -${OPTARG}" >&2                       ;;
         :)  echo "Option -${OPTARG} requires an argument." >&2; exit 1  ;;
     esac
