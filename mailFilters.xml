@@ -50,6 +50,14 @@
     <entry>
         <category term='filter'></category>
         <title>Mail Filter</title>
+        <apps:property name='from' value='angeliquerecruiting.com'/>
+        <apps:property name='shouldTrash' value='true'/>
+        <apps:property name='sizeOperator' value='s_sl'/>
+        <apps:property name='sizeUnit' value='s_smb'/>
+    </entry>
+    <entry>
+        <category term='filter'></category>
+        <title>Mail Filter</title>
         <apps:property name='from' value='apolisrises.com'/>
         <apps:property name='shouldTrash' value='true'/>
         <apps:property name='sizeOperator' value='s_sl'/>
@@ -74,6 +82,14 @@
     <entry>
         <category term='filter'></category>
         <title>Mail Filter</title>
+        <apps:property name='from' value='ascentsg.com'/>
+        <apps:property name='shouldTrash' value='true'/>
+        <apps:property name='sizeOperator' value='s_sl'/>
+        <apps:property name='sizeUnit' value='s_smb'/>
+    </entry>
+    <entry>
+        <category term='filter'></category>
+        <title>Mail Filter</title>
         <apps:property name='from' value='askitc.com'/>
         <apps:property name='shouldTrash' value='true'/>
         <apps:property name='sizeOperator' value='s_sl'/>
@@ -90,6 +106,14 @@
     <entry>
         <category term='filter'></category>
         <title>Mail Filter</title>
+        <apps:property name='from' value='axelon.com'/>
+        <apps:property name='shouldTrash' value='true'/>
+        <apps:property name='sizeOperator' value='s_sl'/>
+        <apps:property name='sizeUnit' value='s_smb'/>
+    </entry>
+    <entry>
+        <category term='filter'></category>
+        <title>Mail Filter</title>
         <apps:property name='from' value='axiomglobal.com'/>
         <apps:property name='shouldTrash' value='true'/>
         <apps:property name='sizeOperator' value='s_sl'/>
@@ -99,6 +123,14 @@
         <category term='filter'></category>
         <title>Mail Filter</title>
         <apps:property name='from' value='bcforward.com'/>
+        <apps:property name='shouldTrash' value='true'/>
+        <apps:property name='sizeOperator' value='s_sl'/>
+        <apps:property name='sizeUnit' value='s_smb'/>
+    </entry>
+    <entry>
+        <category term='filter'></category>
+        <title>Mail Filter</title>
+        <apps:property name='from' value='bytesys.net'/>
         <apps:property name='shouldTrash' value='true'/>
         <apps:property name='sizeOperator' value='s_sl'/>
         <apps:property name='sizeUnit' value='s_smb'/>
@@ -170,6 +202,14 @@
     <entry>
         <category term='filter'></category>
         <title>Mail Filter</title>
+        <apps:property name='from' value='e.tflux.co'/>
+        <apps:property name='shouldTrash' value='true'/>
+        <apps:property name='sizeOperator' value='s_sl'/>
+        <apps:property name='sizeUnit' value='s_smb'/>
+    </entry>
+    <entry>
+        <category term='filter'></category>
+        <title>Mail Filter</title>
         <apps:property name='from' value='edoorsinc.com'/>
         <apps:property name='shouldTrash' value='true'/>
         <apps:property name='sizeOperator' value='s_sl'/>
@@ -187,6 +227,14 @@
         <category term='filter'></category>
         <title>Mail Filter</title>
         <apps:property name='from' value='eteaminc.com'/>
+        <apps:property name='shouldTrash' value='true'/>
+        <apps:property name='sizeOperator' value='s_sl'/>
+        <apps:property name='sizeUnit' value='s_smb'/>
+    </entry>
+    <entry>
+        <category term='filter'></category>
+        <title>Mail Filter</title>
+        <apps:property name='from' value='exceldynamics.info'/>
         <apps:property name='shouldTrash' value='true'/>
         <apps:property name='sizeOperator' value='s_sl'/>
         <apps:property name='sizeUnit' value='s_smb'/>
@@ -258,6 +306,14 @@
     <entry>
         <category term='filter'></category>
         <title>Mail Filter</title>
+        <apps:property name='from' value='hiregenics.com'/>
+        <apps:property name='shouldTrash' value='true'/>
+        <apps:property name='sizeOperator' value='s_sl'/>
+        <apps:property name='sizeUnit' value='s_smb'/>
+    </entry>
+    <entry>
+        <category term='filter'></category>
+        <title>Mail Filter</title>
         <apps:property name='from' value='idctechno.com'/>
         <apps:property name='shouldTrash' value='true'/>
         <apps:property name='sizeOperator' value='s_sl'/>
@@ -267,6 +323,14 @@
         <category term='filter'></category>
         <title>Mail Filter</title>
         <apps:property name='from' value='idctechnologies.com'/>
+        <apps:property name='shouldTrash' value='true'/>
+        <apps:property name='sizeOperator' value='s_sl'/>
+        <apps:property name='sizeUnit' value='s_smb'/>
+    </entry>
+    <entry>
+        <category term='filter'></category>
+        <title>Mail Filter</title>
+        <apps:property name='from' value='imipeople.com'/>
         <apps:property name='shouldTrash' value='true'/>
         <apps:property name='sizeOperator' value='s_sl'/>
         <apps:property name='sizeUnit' value='s_smb'/>
@@ -299,6 +363,14 @@
         <category term='filter'></category>
         <title>Mail Filter</title>
         <apps:property name='from' value='intellisystechnology.com'/>
+        <apps:property name='shouldTrash' value='true'/>
+        <apps:property name='sizeOperator' value='s_sl'/>
+        <apps:property name='sizeUnit' value='s_smb'/>
+    </entry>
+    <entry>
+        <category term='filter'></category>
+        <title>Mail Filter</title>
+        <apps:property name='from' value='intellyk.com'/>
         <apps:property name='shouldTrash' value='true'/>
         <apps:property name='sizeOperator' value='s_sl'/>
         <apps:property name='sizeUnit' value='s_smb'/>
@@ -371,6 +443,14 @@
         <category term='filter'></category>
         <title>Mail Filter</title>
         <apps:property name='from' value='kforce.com'/>
+        <apps:property name='shouldTrash' value='true'/>
+        <apps:property name='sizeOperator' value='s_sl'/>
+        <apps:property name='sizeUnit' value='s_smb'/>
+    </entry>
+    <entry>
+        <category term='filter'></category>
+        <title>Mail Filter</title>
+        <apps:property name='from' value='lancesoft.com'/>
         <apps:property name='shouldTrash' value='true'/>
         <apps:property name='sizeOperator' value='s_sl'/>
         <apps:property name='sizeUnit' value='s_smb'/>
@@ -522,6 +602,14 @@
     <entry>
         <category term='filter'></category>
         <title>Mail Filter</title>
+        <apps:property name='from' value='skiltrek.com'/>
+        <apps:property name='shouldTrash' value='true'/>
+        <apps:property name='sizeOperator' value='s_sl'/>
+        <apps:property name='sizeUnit' value='s_smb'/>
+    </entry>
+    <entry>
+        <category term='filter'></category>
+        <title>Mail Filter</title>
         <apps:property name='from' value='softnice.com'/>
         <apps:property name='shouldTrash' value='true'/>
         <apps:property name='sizeOperator' value='s_sl'/>
@@ -578,6 +666,14 @@
     <entry>
         <category term='filter'></category>
         <title>Mail Filter</title>
+        <apps:property name='from' value='suntechnologies.com'/>
+        <apps:property name='shouldTrash' value='true'/>
+        <apps:property name='sizeOperator' value='s_sl'/>
+        <apps:property name='sizeUnit' value='s_smb'/>
+    </entry>
+    <entry>
+        <category term='filter'></category>
+        <title>Mail Filter</title>
         <apps:property name='from' value='svam.com'/>
         <apps:property name='shouldTrash' value='true'/>
         <apps:property name='sizeOperator' value='s_sl'/>
@@ -595,6 +691,14 @@
         <category term='filter'></category>
         <title>Mail Filter</title>
         <apps:property name='from' value='tekshapers.com'/>
+        <apps:property name='shouldTrash' value='true'/>
+        <apps:property name='sizeOperator' value='s_sl'/>
+        <apps:property name='sizeUnit' value='s_smb'/>
+    </entry>
+    <entry>
+        <category term='filter'></category>
+        <title>Mail Filter</title>
+        <apps:property name='from' value='tgtus.com'/>
         <apps:property name='shouldTrash' value='true'/>
         <apps:property name='sizeOperator' value='s_sl'/>
         <apps:property name='sizeUnit' value='s_smb'/>
@@ -643,6 +747,14 @@
         <category term='filter'></category>
         <title>Mail Filter</title>
         <apps:property name='from' value='varite.com'/>
+        <apps:property name='shouldTrash' value='true'/>
+        <apps:property name='sizeOperator' value='s_sl'/>
+        <apps:property name='sizeUnit' value='s_smb'/>
+    </entry>
+    <entry>
+        <category term='filter'></category>
+        <title>Mail Filter</title>
+        <apps:property name='from' value='vitatechinc.com'/>
         <apps:property name='shouldTrash' value='true'/>
         <apps:property name='sizeOperator' value='s_sl'/>
         <apps:property name='sizeUnit' value='s_smb'/>
