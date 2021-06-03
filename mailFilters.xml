@@ -799,4 +799,12 @@
         <apps:property name='sizeOperator' value='s_sl'/>
         <apps:property name='sizeUnit' value='s_smb'/>
     </entry>
+    <entry>
+        <category term='filter'></category>
+        <title>Mail Filter</title>
+        <apps:property name='from' value='viatechnical.com'/>
+        <apps:property name='shouldTrash' value='true'/>
+        <apps:property name='sizeOperator' value='s_sl'/>
+        <apps:property name='sizeUnit' value='s_smb'/>
+    </entry>
 </feed>
