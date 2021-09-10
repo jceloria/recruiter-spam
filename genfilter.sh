@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 SELF=${0##*/} SDIR=${0%/*}
-########################################################################################################################
+# -------------------------------------------------------------------------------------------------------------------- #
 : '
  The MIT License (MIT)
 
- Copyright © 2019 by John Celoria.
+ Copyright © 2021 by John Celoria.
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -26,42 +26,67 @@ SELF=${0##*/} SDIR=${0%/*}
  SOFTWARE.
 
 '
-######################################################## config ########################################################
-# Set some defaults
-VERSION=0.1
+# Set some defaults -------------------------------------------------------------------------------------------------- #
+VERSION=0.2
 
-DOMAIN_LIST=${1:-${SDIR}/list.txt}
-####################################################### functions ######################################################
-# Print usage information
+DOMAIN_LIST=${DOMAIN_LIST:-list.txt}
+OUTPUT_FILE=${OUTPUT_FILE:-mailFilters.xml}
+
+# Functions ---------------------------------------------------------------------------------------------------------- #
 function help() {
 cat << EOF
 Usage: ${SELF} [OPTION]...
-Generate Gmail filter from list of domains
+Generate a Gmail filter from a list of domains
 
   -h    Display this help message and exit
+  -q    Quiet output
 
 EOF
     return
 }
-########################################################################################################################
-########################################################################################################################
-# Sanity checks
-while getopts ":hq" opt; do
-    case ${opt} in
-        h)  help >&2; exit 1                                            ;;
-        \?) echo "Invalid option: -${OPTARG}" >&2                       ;;
-        :)  echo "Option -${OPTARG} requires an argument." >&2; exit 1  ;;
-    esac
-done; shift $((${OPTIND} - 1))
 
-######################################################### main #########################################################
+# -------------------------------------------------------------------------------------------------------------------- #
+function log() {
+    local level levels=(notice warning crit)
+    level="+($(IFS='|';echo "${levels[*]}"))"
 
-cat <<!!
+    shopt -s extglob; case ${1} in
+        ${level}) level=${1}; shift ;;
+        *) level=notice ;;
+    esac; shopt -u extglob
+
+    [[ -z ${RETVAL} ]] && { for RETVAL in "${!levels[@]}"; do
+        [[ ${levels[${RETVAL}]} = "${level}" ]] && break
+    done }
+
+    logger -s -p ${level} -t "[${SELF}:${FUNCNAME[1]}()]" -- $@;
+}
+
+# -------------------------------------------------------------------------------------------------------------------- #
+function die() { local retval=${RETVAL:-$?}; log "$@"; exit ${retval}; }
+
+# Sanity checks ------------------------------------------------------------------------------------------------------ #
+while getopts ":hq-:" OPT; do
+    if [[ "${OPT}" = "-" ]]; then
+        OPT="${OPTARG%%=*}"
+        OPTARG="${OPTARG#$OPT}"
+        OPTARG="${OPTARG#=}"
+    fi
+    case "${OPT}" in
+        h|help)     help >&2; exit 1                                        ;;
+        ??*)        RETVAL=2; die "Invalid short option: -${OPT}"           ;;
+        \?)         RETVAL=3; die "Invalid long option: --${OPT}"           ;;
+        :)          RETVAL=4; die "Option -${OPTARG} requires an argument." ;;
+  esac
+done; shift $((OPTIND-1))
+
+# main --------------------------------------------------------------------------------------------------------------- #
+cat <<!! | tee -a ${OUTPUT_FILE}
 <?xml version='1.0' encoding='UTF-8'?><feed xmlns='http://www.w3.org/2005/Atom' xmlns:apps='http://schemas.google.com/apps/2006'>
 !!
 
 cat ${DOMAIN_LIST} | while read line; do
-cat <<!!
+cat <<!! | tee -a ${OUTPUT_FILE}
     <entry>
         <category term='filter'></category>
         <title>Mail Filter</title>
@@ -73,7 +98,8 @@ cat <<!!
 !!
 done
 
-cat <<!!
+cat <<!! | tee -a ${OUTPUT_FILE}
 </feed>
 !!
-########################################################################################################################
+
+# -------------------------------------------------------------------------------------------------------------------- #
