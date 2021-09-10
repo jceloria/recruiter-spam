@@ -1,13 +1,18 @@
-$DOMAIN_LIST = if ($env:DOMAIN_LIST) { $env:DOMAIN_LIST } else { ".\list.txt" };
-$OUTPUT_FILE = if ($env:OUTPUT_FILE) { $env:OUTPUT_FILE } else { ".\mailFilters.xml" };
+<# .SYNOPSIS #>
+param (
+    [string] $list = ".\list.txt",
+    [string] $format = "xml",
+    [string] $outfile = ".\mailFilters.$format"
+)
 
-$xml = @"
+function Generate-XML {
+    $file = @"
 <?xml version='1.0' encoding='UTF-8'?><feed xmlns='http://www.w3.org/2005/Atom' xmlns:apps='http://schemas.google.com/apps/2006'>
 
 "@
 
-foreach($line in Get-Content $DOMAIN_LIST) {
-    $xml += @"
+    foreach($line in Get-Content $list) {
+        $file += @"
     <entry>
         <category term='filter'></category>
         <title>Mail Filter</title>
@@ -18,10 +23,24 @@ foreach($line in Get-Content $DOMAIN_LIST) {
     </entry>
 
 "@
-}
+    }
 
-$xml += @"
+    $file += @"
 </feed>
 "@
 
-$xml | Tee-Object -FilePath $OUTPUT_FILE
+    $file
+}
+
+function Generate-CSV {
+    foreach($line in Get-Content $list) {
+        $file += $line + ","
+    }
+
+    $file.TrimEnd(",")
+}
+
+switch ($format) {
+    "csv"   { Generate-CSV | Tee-Object -FilePath $outfile; break }
+    default { Generate-XML | Tee-Object -FilePath $outfile; break }
+}

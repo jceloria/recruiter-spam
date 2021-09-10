@@ -29,8 +29,9 @@ SELF=${0##*/} SDIR=${0%/*}
 # Set some defaults -------------------------------------------------------------------------------------------------- #
 VERSION=0.2
 
-DOMAIN_LIST=${DOMAIN_LIST:-list.txt}
-OUTPUT_FILE=${OUTPUT_FILE:-mailFilters.xml}
+BLOCK_LIST=${BLOCK_LIST:-list.txt}
+OUTPUT_FORMAT=${OUTPUT_FORMAT:-xml}
+OUTPUT_FILE=${OUTPUT_FILE:-mailFilters.$OUTPUT_FORMAT}
 
 # Functions ---------------------------------------------------------------------------------------------------------- #
 function help() {
@@ -38,8 +39,10 @@ cat << EOF
 Usage: ${SELF} [OPTION]...
 Generate a Gmail filter from a list of domains
 
-  -h    Display this help message and exit
-  -q    Quiet output
+  -h, --help     Display this help message and exit
+  -l, --list     The list of domains/emails to read (default: ${BLOCK_LIST})
+  -f, --format   The output format (default: ${OUTPUT_FORMAT})
+  -o, --outfile  The output file name (default: ${OUTPUT_FILE})
 
 EOF
     return
@@ -65,28 +68,14 @@ function log() {
 # -------------------------------------------------------------------------------------------------------------------- #
 function die() { local retval=${RETVAL:-$?}; log "$@"; exit ${retval}; }
 
-# Sanity checks ------------------------------------------------------------------------------------------------------ #
-while getopts ":hq-:" OPT; do
-    if [[ "${OPT}" = "-" ]]; then
-        OPT="${OPTARG%%=*}"
-        OPTARG="${OPTARG#$OPT}"
-        OPTARG="${OPTARG#=}"
-    fi
-    case "${OPT}" in
-        h|help)     help >&2; exit 1                                        ;;
-        ??*)        RETVAL=2; die "Invalid short option: -${OPT}"           ;;
-        \?)         RETVAL=3; die "Invalid long option: --${OPT}"           ;;
-        :)          RETVAL=4; die "Option -${OPTARG} requires an argument." ;;
-  esac
-done; shift $((OPTIND-1))
-
-# main --------------------------------------------------------------------------------------------------------------- #
-cat <<!! | tee -a ${OUTPUT_FILE}
+# -------------------------------------------------------------------------------------------------------------------- #
+function generate-xml() {
+    cat <<@@
 <?xml version='1.0' encoding='UTF-8'?><feed xmlns='http://www.w3.org/2005/Atom' xmlns:apps='http://schemas.google.com/apps/2006'>
-!!
+@@
 
-cat ${DOMAIN_LIST} | while read line; do
-cat <<!! | tee -a ${OUTPUT_FILE}
+cat ${BLOCK_LIST} | while read line; do
+    cat <<@@
     <entry>
         <category term='filter'></category>
         <title>Mail Filter</title>
@@ -95,11 +84,44 @@ cat <<!! | tee -a ${OUTPUT_FILE}
         <apps:property name='sizeOperator' value='s_sl'/>
         <apps:property name='sizeUnit' value='s_smb'/>
     </entry>
-!!
+@@
 done
 
-cat <<!! | tee -a ${OUTPUT_FILE}
+cat <<@@
 </feed>
-!!
+@@
+}
+
+# -------------------------------------------------------------------------------------------------------------------- #
+function generate-csv() {
+    for line in $(<${BLOCK_LIST}); do
+        echo ${line}
+    done
+}
+
+# Sanity checks ------------------------------------------------------------------------------------------------------ #
+while getopts ":hf:-:" OPT; do
+    if [[ "${OPT}" = "-" ]]; then
+        OPT="${OPTARG%%=*}"
+        OPTARG="${OPTARG#$OPT}"
+        OPTARG="${OPTARG#=}"
+    fi
+    case "${OPT}" in
+        h|help)     help >&2; exit 1                                        ;;
+        l|list)     BLOCK_LIST=${OPTARG}                                    ;;
+        f|format)   OUTPUT_FORMAT=${OPTARG}                                 ;;
+        o|outfile)  OUTPUT_FILE=${OPTARG}                                   ;;
+        ??*)        RETVAL=2; die "Invalid short option: -${OPT}"           ;;
+        \?)         RETVAL=3; die "Invalid long option: --${OPT}"           ;;
+        :)          RETVAL=4; die "Option -${OPTARG} requires an argument." ;;
+  esac
+done; shift $((OPTIND-1))
+
+# main --------------------------------------------------------------------------------------------------------------- #
+
+case ${OUTPUT_FORMAT} in
+    csv)    generate-csv | tee -a ${OUTPUT_FILE}    ;;
+    *)      generate-xml | tee -a ${OUTPUT_FILE}    ;;
+esac
 
 # -------------------------------------------------------------------------------------------------------------------- #
