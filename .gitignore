@@ -1,0 +1,9 @@
+*.gz
+*.log
+*.sw*
+*.zip
+.DS_Store
+._*
+.idea
+*.xml
+*.csv
