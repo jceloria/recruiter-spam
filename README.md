@@ -46,8 +46,24 @@ RELATED LINKS
     The GitHub repo for this script can found here: https://github.com/jceloria/recruiter-spam
 
 REMARKS
-    To see the examples, type: "get-help F:\Code\recruiter-spam\genfilter.ps1 -examples".
-    For more information, type: "get-help F:\Code\recruiter-spam\genfilter.ps1 -detailed".
-    For technical information, type: "get-help F:\Code\recruiter-spam\genfilter.ps1 -full".
-    For online help, type: "get-help F:\Code\recruiter-spam\genfilter.ps1 -online"
+    To see the examples, type: "get-help genfilter.ps1 -examples".
+    For more information, type: "get-help genfilter.ps1 -detailed".
+    For technical information, type: "get-help genfilter.ps1 -full".
+    For online help, type: "get-help "genfilter.ps1 -online"
+```
+
+### Examples for the PowerShell script:
+```
+PS>.\genfilter.ps1
+
+    -> default options used of 'list.txt', 'xml' and 'mailFilter.xml'
+		
+PS>.\genfilter.ps1 "list.txt" "xml" "mailFilters2.xml"
+
+    -> default file input / export file format, but the output file is called "mailFilters2.xml"
+		
+PS>.\genfilter.ps1 "list.txt" "csv" "mailFilters.csv"
+
+    -> generates a CSV file called mailFilters.csv in the same directory
+
 ```
