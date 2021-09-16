@@ -84,10 +84,10 @@ function Generate-XML {
 
 function Generate-CSV {
     foreach($line in Get-Content $list) {
-        $file += $line + ","
+        $file += $line + "`n"
     }
 
-    $file.TrimEnd(",")
+    $file.TrimEnd("\n")
 }
 
 switch ($format) {
