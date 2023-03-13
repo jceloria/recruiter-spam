@@ -30,8 +30,7 @@ SELF=${0##*/} SDIR=${0%/*}
 VERSION=0.2
 
 BLOCK_LIST=${BLOCK_LIST:-list.txt}
-OUTPUT_FORMAT=${OUTPUT_FORMAT:-xml}
-OUTPUT_FILE=${OUTPUT_FILE:-mailFilters.$OUTPUT_FORMAT}
+OUTPUT_FILE=${OUTPUT_FILE:-mailFilters.xml}
 
 # Functions ---------------------------------------------------------------------------------------------------------- #
 function help() {
@@ -41,7 +40,6 @@ Generate a Gmail filter from a list of domains
 
   -h, --help     Display this help message and exit
   -l, --list     The list of domains/emails to read (default: ${BLOCK_LIST})
-  -f, --format   The output format (default: ${OUTPUT_FORMAT})
   -o, --outfile  The output file name (default: ${OUTPUT_FILE})
 
 EOF
@@ -71,7 +69,9 @@ function die() { local retval=${RETVAL:-$?}; log "$@"; exit ${retval}; }
 # -------------------------------------------------------------------------------------------------------------------- #
 function generate-xml() {
     cat <<@@
-<?xml version='1.0' encoding='UTF-8'?><feed xmlns='http://www.w3.org/2005/Atom' xmlns:apps='http://schemas.google.com/apps/2006'>
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns='http://www.w3.org/2005/Atom' xmlns:apps='http://schemas.google.com/apps/2006'>
+    <title>Mail Filters</title>
 @@
 
 cat ${BLOCK_LIST} | while read line; do
@@ -119,9 +119,7 @@ done; shift $((OPTIND-1))
 
 # main --------------------------------------------------------------------------------------------------------------- #
 
-case ${OUTPUT_FORMAT} in
-    csv)    generate-csv | tee -a ${OUTPUT_FILE}    ;;
-    *)      generate-xml | tee -a ${OUTPUT_FILE}    ;;
-esac
+export LANG=C.UTF-8
+generate-xml | tee -a ${OUTPUT_FILE}
 
 # -------------------------------------------------------------------------------------------------------------------- #
