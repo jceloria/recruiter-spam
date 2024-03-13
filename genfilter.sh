@@ -92,15 +92,8 @@ cat <<@@
 @@
 }
 
-# -------------------------------------------------------------------------------------------------------------------- #
-function generate-csv() {
-    for line in $(<${BLOCK_LIST}); do
-        echo ${line}
-    done
-}
-
 # Sanity checks ------------------------------------------------------------------------------------------------------ #
-while getopts ":hf:-:" OPT; do
+while getopts ":hl:o:-:" OPT; do
     if [[ "${OPT}" = "-" ]]; then
         OPT="${OPTARG%%=*}"
         OPTARG="${OPTARG#$OPT}"
@@ -109,13 +102,18 @@ while getopts ":hf:-:" OPT; do
     case "${OPT}" in
         h|help)     help >&2; exit 1                                        ;;
         l|list)     BLOCK_LIST=${OPTARG}                                    ;;
-        f|format)   OUTPUT_FORMAT=${OPTARG}                                 ;;
         o|outfile)  OUTPUT_FILE=${OPTARG}                                   ;;
         ??*)        RETVAL=2; die "Invalid short option: -${OPT}"           ;;
         \?)         RETVAL=3; die "Invalid long option: --${OPT}"           ;;
         :)          RETVAL=4; die "Option -${OPTARG} requires an argument." ;;
-  esac
+    esac
 done; shift $((OPTIND-1))
+
+req_progs=()
+for p in ${req_progs[@]}; do
+    hash "${p}" 2>&- || \
+    { die "Required program \"${p}\" not found in \${PATH}."; }
+done
 
 # main --------------------------------------------------------------------------------------------------------------- #
 
