@@ -11,7 +11,6 @@ Generate a Gmail filter from a list of domains
 
   -h, --help     Display this help message and exit
   -l, --list     The list of domains/emails to read (default: list.txt)
-  -f, --format   The output format (default: xml)
   -o, --outfile  The output file name (default: mailFilters.xml)
 
 ```
