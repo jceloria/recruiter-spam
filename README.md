@@ -1,13 +1,13 @@
 # recruiter-spam
-Gmail filter for recruiter domains
+A jsonnet config generator for [gmailctl](https://github.com/mbrt/gmailctl) to create Gmail filters for recruiter domains.
 
 Pull requests are more than welcome!
 
-#### [genfilter.sh](genfilter.sh):
+#### [genconig.sh](genconig.sh):
 ```
-$─► ./genfilter.sh --help
-Usage: genfilter.sh [OPTION]...
-Generate a Gmail filter from a list of domains
+$─► ./genconig.sh --help
+Usage: genconig.sh [OPTION]...
+Generate a jsonnet config for gmailctl from a list of domains.
 
   -h, --help     Display this help message and exit
   -l, --list     The list of domains/emails to read (default: list.txt)

@@ -30,7 +30,7 @@ SELF=${0##*/} SDIR=${0%/*}
 VERSION=0.2
 
 BLOCK_LIST=${BLOCK_LIST:-list.txt}
-OUTPUT_FILE=${OUTPUT_FILE:-mailFilters.xml}
+OUTPUT_FILE=${OUTPUT_FILE:-~/.gmailctl/config.jsonnet}
 
 # Functions ---------------------------------------------------------------------------------------------------------- #
 function help() {
@@ -67,29 +67,29 @@ function log() {
 function die() { local retval=${RETVAL:-$?}; log "$@"; exit ${retval}; }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-function generate-xml() {
-    cat <<@@
-<?xml version='1.0' encoding='UTF-8'?>
-<feed xmlns='http://www.w3.org/2005/Atom' xmlns:apps='http://schemas.google.com/apps/2006'>
-    <title>Mail Filters</title>
-@@
+function generate-jsonnet() {
+cat << EOF
+local spam = {
+  or: [
+EOF
 
-cat ${BLOCK_LIST} | while read line; do
-    cat <<@@
-    <entry>
-        <category term='filter'></category>
-        <title>Mail Filter</title>
-        <apps:property name='from' value='${line}'/>
-        <apps:property name='shouldTrash' value='true'/>
-        <apps:property name='sizeOperator' value='s_sl'/>
-        <apps:property name='sizeUnit' value='s_smb'/>
-    </entry>
-@@
-done
+    while read line; do
+        echo '    { from: "'${line}'" },'
+    done < <(<${BLOCK_LIST})
 
-cat <<@@
-</feed>
-@@
+cat << EOF
+  ],
+};
+{
+  version: 'v1alpha3',
+  rules: [
+    {
+      filter: spam,
+      actions: { delete: true },
+    },
+  ],
+}
+EOF
 }
 
 # Sanity checks ------------------------------------------------------------------------------------------------------ #
@@ -109,7 +109,7 @@ while getopts ":hl:o:-:" OPT; do
     esac
 done; shift $((OPTIND-1))
 
-req_progs=()
+req_progs=(gmailctl)
 for p in ${req_progs[@]}; do
     hash "${p}" 2>&- || \
     { die "Required program \"${p}\" not found in \${PATH}."; }
@@ -118,6 +118,15 @@ done
 # main --------------------------------------------------------------------------------------------------------------- #
 
 export LANG=C.UTF-8
-generate-xml | tee -a ${OUTPUT_FILE}
+
+[[ -e ${OUTPUT_FILE} ]] && read -p "Overwrite, ${OUTPUT_FILE} [y/N]?: " x
+
+case ${x} in y*|Y*) overwrite=1 ;; *) overwrite=0 ;; esac
+
+if [[ -e ${OUTPUT_FILE} ]] && [[ ${overwrite} -eq 0 ]]; then
+    die 'Exiting...'
+fi
+
+generate-jsonnet | tee ${OUTPUT_FILE}
 
 # -------------------------------------------------------------------------------------------------------------------- #
